@@ -1,9 +1,10 @@
+import os.path
 import pickle
 import cv2
 import mediapipe as mp
 import numpy as np
 import flet as ft
-from flet import Image, Page
+from flet import Image, Page, Text, ElevatedButton,TextField
 import base64
 import time
 
@@ -19,11 +20,31 @@ hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3)
 labels_dict = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H', 8: 'I', 9: 'J', 10: 'K', 11: 'L', 12: 'M', 13: 'N', 14: 'O', 15: 'P', 16: 'Q', 17: 'R', 18: 'S', 19: 'T', 20: 'U', 21: 'V', 22: 'W', 23: 'X', 24: 'Y', 25: 'Z'}
 
 def main(page: Page):
-    cap = cv2.VideoCapture(0)
-    img = Image()
-    page.add(img)
+    cap = None
+    img = Image(src = "https://e0.pxfuel.com/wallpapers/853/173/desktop-wallpaper-sign-language-asl.jpg", width=640, height=480, fit=ft.ImageFit.CONTAIN)
+    page.window.width = 700
+    page.window.height = 700
+    detectect_letters = TextField(label="Letra detectada", value="")
+    page.add(
+        ft.Row(
+            controls=[Text("Lenguaje de señas", size=30, weight="bold")],
+            alignment=ft.MainAxisAlignment.CENTER
+        )
+    )
+    page.add(
+        ft.Row(
+            controls= [img],
+            alignment=ft.MainAxisAlignment.CENTER
+        )
+    )
+    page.add(detectect_letters)
+    skiped_frames = 0
 
     def update_frame():
+        nonlocal skiped_frames
+        if cap is None:
+            return
+
         ret, frame = cap.read()
         if not ret:
             return
@@ -67,6 +88,10 @@ def main(page: Page):
 
             prediction = model.predict([np.asarray(data_aux)])
             predicted_character = labels_dict[int(prediction[0])]
+            skiped_frames += 1
+            if skiped_frames >= 30:
+                skiped_frames = 0
+                detectect_letters.value += predicted_character
 
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 0), 4)
             cv2.putText(frame, predicted_character, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 0, 0), 3,
@@ -76,8 +101,18 @@ def main(page: Page):
         img.src_base64 = base64.b64encode(buffer).decode('utf-8')
         page.update()
 
-    while True:
-        update_frame()
-        time.sleep(0.01)
+    def start_camera(e):
+        nonlocal cap
+        cap = cv2.VideoCapture(0)
+        while True:
+            update_frame()
+            time.sleep(0.01)
+
+    page.add(
+        ft.Row(
+            controls=[ElevatedButton("Activar camara", on_click=start_camera)],
+            alignment=ft.MainAxisAlignment.CENTER
+        )
+    )
 
 ft.app(target=main)
