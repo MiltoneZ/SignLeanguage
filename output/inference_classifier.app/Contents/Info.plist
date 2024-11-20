@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>inference_classifier</string>
+	<key>CFBundleExecutable</key>
+	<string>inference_classifier</string>
+	<key>CFBundleIconFile</key>
+	<string>generated-8afc81a1bfca4e62844e0faadd35a508e5c98782a413fd807d3f8479d5fb3429.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>inference_classifier</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>inference_classifier</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.0.0</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+</dict>
+</plist>
