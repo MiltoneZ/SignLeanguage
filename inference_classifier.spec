@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['inference_classifier.py'],
+    ['main.py', 'create_dataset.py', 'collect_imgs.py', 'data.pickle', 'model.p', 'data','train_classifier.py', 'assets'],
     pathex=[],
     binaries=[],
     datas=[],

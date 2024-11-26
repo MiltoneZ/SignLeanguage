@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os.path
 import pickle
 import cv2
@@ -22,7 +24,8 @@ labels_dict = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H', 8
 def main(page: Page):
     cap = None
     img = Image(src = "https://e0.pxfuel.com/wallpapers/853/173/desktop-wallpaper-sign-language-asl.jpg", width=640, height=480, fit=ft.ImageFit.CONTAIN)
-    page.window.width = 700
+    singImg = Image(src = "https://raw.githubusercontent.com/MiltoneZ/SignLeanguage/refs/heads/main/assets/Senas.png", width=370, height=350, fit=ft.ImageFit.CONTAIN)
+    page.window.width = 1100
     page.window.height = 700
     detectect_letters = TextField(label="Letra detectada", value="")
     page.add(
@@ -33,7 +36,7 @@ def main(page: Page):
     )
     page.add(
         ft.Row(
-            controls= [img],
+            controls= [img,singImg],
             alignment=ft.MainAxisAlignment.CENTER
         )
     )
@@ -108,10 +111,13 @@ def main(page: Page):
             update_frame()
             time.sleep(0.01)
 
+    def reset_text(e):
+        detectect_letters.value = ""
+
     page.add(
         ft.Row(
-            controls=[ElevatedButton("Activar camara", on_click=start_camera)],
-            alignment=ft.MainAxisAlignment.CENTER
+            controls=[ElevatedButton("Activar camara", on_click=start_camera), ElevatedButton(text="Restablecer", on_click=reset_text)],
+            alignment=ft.MainAxisAlignment.CENTER, spacing=180
         )
     )
 
