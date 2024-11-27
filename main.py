@@ -23,9 +23,9 @@ labels_dict = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H', 8
 
 def main(page: Page):
     cap = None
-    img = Image(src = "https://e0.pxfuel.com/wallpapers/853/173/desktop-wallpaper-sign-language-asl.jpg", width=640, height=480, fit=ft.ImageFit.CONTAIN)
+    img = Image(src = "https://raw.githubusercontent.com/MiltoneZ/SignLeanguage/refs/heads/main/assets/Infamilia%20Logo.png", width=600, height=480, fit=ft.ImageFit.CONTAIN)
     singImg = Image(src = "https://raw.githubusercontent.com/MiltoneZ/SignLeanguage/refs/heads/main/assets/Senas.png", width=370, height=350, fit=ft.ImageFit.CONTAIN)
-    page.window.width = 1100
+    page.window.width = 1000
     page.window.height = 700
     detectect_letters = TextField(label="Letra detectada", value="")
     page.add(
